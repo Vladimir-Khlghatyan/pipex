@@ -1,0 +1,41 @@
+
+MANDATORY________________________________________________________________
+																		|
+< infile ls -l | wc -l > outfile										|
+./pipex infile "ls -l" "wc -l" outfile									|
+																		|
+< infile grep a1 | wc -w > outfile										|
+./pipex infile "grep a1" "wc -w" outfile								|
+																		|
+________________________________________________________________________|
+
+BONUS____________________________________________________________________
+																		|
+< file1 cat | sort | cat /dev/random | ls | wc -w > file2				|
+./pipex file1 cat sort "cat /dev/random" ls "wc -w" file2				|
+																		|
+< file1 cat | sort | cat /dev/random | ls | wc > file3					|
+./pipex file1 cat sort "cat /dev/random" ls wc file3					|
+																		|
+< file1 cat | wc -cl | grep 0 | sort | cat > file4						|
+./pipex file1 cat "wc -cl" "grep 0" sort cat file4						|
+																		|
+< file1 sleep 1 | sleep 5 | sleep 8 | sleep 4 | sleep 2 > file5			|
+./pipex file1 "sleep 1" "sleep 5" "sleep 8" "sleep 4" "sleep 2" file5	|
+																		|
+<file1 cat | sort | cat /dev/random | ls | wc > file6					|
+./pipex file1 cat sort "cat /dev/random" ls wc file6					|
+																		|
+cat << LIMITER | cat >> file7											|
+./pipex here_doc LIMITER cat cat file7									|
+																		|
+________________________________________________________________________|
+.
+.
+.
+.
+.
+.
+.
+.
+.
