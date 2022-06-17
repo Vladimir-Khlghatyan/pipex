@@ -53,28 +53,20 @@ static int	wordcount(char *s, char c)
 	return (q);
 }
 
-static int	wordlen(char *s, char c, int index)
+static int	wordlen(const char *s, char c)
 {
-	int	q;
 	int	i;
 	int	len;
 
-	q = 0;
 	i = 0;
 	len = 0;
 	while (s[i] == c)
 		i++;
-	if (s[i++] != '\0')
-		q = 1;
-	while (s[i])
+	if (s[i] == '\0')
+		return (0);
+	while (s[i] && s[i] != c)
 	{
-		while (index == q - 1 && s[i - 1] && s[i - 1] != c)
-		{
-			len++;
-			i++;
-		}
-		if (s[i] != c && s[i - 1] == c)
-			q++;
+		len++;
 		i++;
 	}
 	return (len);
@@ -95,7 +87,7 @@ char	**ft_split(char *s, char c)
 	malloccheck(tab);
 	while (++i < wc)
 	{
-		tab[i] = (char *)malloc(sizeof(char) * (wordlen(s, c, i) + 1));
+		tab[i] = (char *)malloc(sizeof(char) * (wordlen(s, c) + 1));
 		if (!tab[i])
 			return (tabfree(tab));
 		while (*s == c)
