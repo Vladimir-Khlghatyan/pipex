@@ -14,23 +14,19 @@
 
 static char	**tabfree(char **tab)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	return (NULL);
-}
-
-static char	**malloccheck(char **tab)
-{
 	if (!tab)
 		return (NULL);
-	return (tab);
+	i = -1;
+	while (tab[++i])
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+	}
+	free(tab);
+	tab = NULL;
+	return (NULL);
 }
 
 static int	wordcount(char *s, char c)
@@ -53,17 +49,17 @@ static int	wordcount(char *s, char c)
 	return (q);
 }
 
-static int	wordlen(const char *s, char c)
+static int	wordlen(char *s, char c)
 {
 	int	i;
 	int	len;
 
 	i = 0;
 	len = 0;
-	while (s[i] == c)
-		i++;
 	if (s[i] == '\0')
 		return (0);
+	while (s[i] == c)
+		i++;
 	while (s[i] && s[i] != c)
 	{
 		len++;
@@ -76,27 +72,27 @@ char	**ft_split(char *s, char c)
 {
 	char	**tab;
 	int		wc;
-	int		i;
-	int		t;
+	int		i[2];
 
 	if (!s)
 		return (NULL);
-	i = -1;
+	i[0] = -1;
 	wc = wordcount(s, c);
 	tab = (char **)malloc(sizeof(char *) * (wc + 1));
-	malloccheck(tab);
-	while (++i < wc)
+	if (!tab)
+		return (NULL);
+	while (++i[0] < wc)
 	{
-		tab[i] = (char *)malloc(sizeof(char) * (wordlen(s, c) + 1));
-		if (!tab[i])
+		tab[i[0]] = (char *)malloc(sizeof(char) * (wordlen(s, c) + 1));
+		if (!tab[i[0]])
 			return (tabfree(tab));
 		while (*s == c)
 			s++;
-		t = 0;
+		i[1] = 0;
 		while (*s != c && *s)
-			tab[i][t++] = *s++;
-		tab[i][t] = '\0';
+			tab[i[0]][i[1]++] = *s++;
+		tab[i[0]][i[1]] = '\0';
 	}
-	tab[i] = NULL;
+	tab[i[0]] = NULL;
 	return (tab);
 }
