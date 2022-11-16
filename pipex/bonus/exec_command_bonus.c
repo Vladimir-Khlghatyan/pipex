@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkhlghat <vkhlghat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkhlghat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:03:55 by vkhlghat          #+#    #+#             */
 /*   Updated: 2022/04/26 13:06:11 by vkhlghat         ###   ########.fr       */
